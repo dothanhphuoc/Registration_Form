@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post" class="form" id="form-1">
+            <h3 class="heading">Đăng ký tài khoản</h3>
+            <p class="sub-title">Đăng ký để biết nhiều điều thú vị</p>
+
+
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Vd: Do Thanh Phuoc" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" id="email" name="email" placeholder="Vd: abc@gmail.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group horizontal">
+                <label for="gender" class="form-label">Giới tính</label>
+                <div>
+                    <input name="gender" type="radio" value="male" class="form-control">
+                    Name
+                </div>
+                <div>
+                    <input name="gender" type="radio" value="female" class="form-control">
+                    Nữ
+                </div>
+
+                <div>
+                    <input name="gender" type="radio" value="orther" class="form-control">
+                    Khác
+                </div>
+                <span class="form-message"></span>
+            </div>
+            <button class="form-submit">Đăng ký</button>
+
+        </form>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+
+        // Mong muốn của chúng ta ( sử dụng cho tương lai )
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname'),   // ísRequitor: bắt buộc nhập
+                Validator.isRequired('#email'),   // ísRequitor: bắt buộc nhập
+                Validator.isEmail('#email'),         // ísEmail: bắt buộc phải là email
+                Validator.isRequired('#password'),
+                Validator.passwordLength('#password', 7),
+                Validator.isConfirmed('#password_confirmation', function(){
+                    return document.querySelector('#form-1 #password').value;
+                }, 'Mật khẩu nhập lại không chính xác'),
+                Validator.isRequired('input[name="gender"]'),
+
+
+            ],
+
+            onSubmit: function(data){
+
+                // tương lai call API
+                console.log(data);
+            }
+        })
+    </script>
+   
+</body>
+</html>
